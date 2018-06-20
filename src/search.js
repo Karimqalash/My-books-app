@@ -24,6 +24,15 @@ class Search extends Component{
 			}
 	}
 
+  checkShelf = (book) => {
+    let bookShelf = "none"
+    this.props.books.forEach((shelfBook) => {
+        if (shelfBook.title==book.title){
+          bookShelf = shelfBook.shelf
+        }
+      })
+    return bookShelf
+  }
 
 	render() {
 
@@ -51,7 +60,7 @@ class Search extends Component{
                      <div className="book-top">
                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: book.imageLinks ? `url(${book.imageLinks.thumbnail})` : `url('http://via.placeholder.com/128x193')` }}></div>
                        <div className="book-shelf-changer">
-                         <select value ={book.shelf} onChange={this.props.moveToRead(book.id)}>
+                         <select value ={this.checkShelf(book)} onChange={this.props.moveToRead(book.id)}>
                            <option value="move" disabled>Move to...</option>
                            <option value="none">None</option> 
                            <option value="currentlyReading">Currently Reading</option>
